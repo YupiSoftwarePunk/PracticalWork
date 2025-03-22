@@ -122,5 +122,27 @@ namespace Practice
             }
 
         }
+
+        public IEnumerable<T> ChangeAvailability()
+        {
+            try
+            {
+                bool IsUnAvailable = !media.Any(i => i.IsAvailable);
+                return media.Where(i => i.IsAvailable = IsUnAvailable);
+            }
+            catch
+            {
+                throw new Exception("Нет доступных элементов для изменения статуса!!");
+            }
+        }
+
+
+        public void PrintAll()
+        {
+            foreach (var i in media)
+            {
+                Console.WriteLine($"Название: {i.Title},\nАвтор: {i.Author}\nГод публикации: {i.YearPublished}\nДоступно: {i.IsAvailable}\n");
+            }
+        }
     }
 }
