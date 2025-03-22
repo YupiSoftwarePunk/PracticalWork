@@ -20,7 +20,7 @@ namespace Practice
             }
             else
             {
-                throw new Exception("Элемент с таким именем уже существует");
+                throw new Exception("Элемент с таким именем уже существует!!");
             }
 
         }
@@ -42,7 +42,7 @@ namespace Practice
             }
             else
             {
-                throw new Exception("Элемента с таким именем не существует");
+                throw new Exception("Элемента с таким именем не существует!!");
             }
         }
 
@@ -54,18 +54,73 @@ namespace Practice
             }
             else
             {
-                throw new Exception("Элемента с таким именем не существует");
+                throw new Exception("Элемента с таким именем не существует!!");
             }
         }
 
         public IEnumerable<T> FilterByYear(int year)
         {
-            return media.Where(i => i.YearPublished == year);
+            try
+            {
+                return media.Where(i => i.YearPublished == year);
+            }
+            catch
+            {
+                throw new Exception("Элемента с таким годом выпуска не существует!!");
+            }
+
+            
         }
 
         public IEnumerable<T> GetAllAvailable()
         {
-            return media.Where(i => i.IsAvailable);
+            try
+            {
+                return media.Where(i => i.IsAvailable);
+            }
+            catch
+            {
+                throw new Exception("Нет доступных элементов!!");
+            }
+            
+        }
+
+        public IEnumerable<T> ShowBooks(int year)
+        {
+            try
+            {
+                return media.Where(i => i.YearPublished > year);
+            }
+            catch
+            {
+                throw new Exception("Элементов с таким годом издания не существует!!");
+            }
+        }
+
+        public List<Movie> ShowMovies()
+        {
+            try
+            {
+                return media.OrderBy(i => i.Duration).ToList();
+            }
+            catch
+            {
+                throw new Exception("Таких элементов не существует!!");
+            }
+        }
+
+        public IEnumerable<T> GetAllUnAvailable()
+        {
+            try
+            {
+                bool IsUnAvailable = !media.Any(i => i.IsAvailable);
+                return media.Where(i => i.IsAvailable == IsUnAvailable);
+            }
+            catch
+            {
+                throw new Exception("Нет недоступных элементов!!");
+            }
+
         }
     }
 }
