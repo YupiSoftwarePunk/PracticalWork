@@ -8,8 +8,8 @@ namespace Practice
 {
     public class Library<T> : IMediaManager<T> where T : Media
     {
-        List<T> media = new List<T>();
-        Dictionary<string, T> titleFinder = new Dictionary<string, T>();
+        public List<T> media = new List<T>();
+        private Dictionary<string, T> titleFinder = new Dictionary<string, T>();
 
         public void Add(T item)
         {
@@ -89,7 +89,7 @@ namespace Practice
         {
             try
             {
-                return media.Where(i => i.YearPublished > year);
+                return FilterByYear(year);
             }
             catch
             {
@@ -101,7 +101,7 @@ namespace Practice
         {
             try
             {
-                return media.OrderBy(i => i.Duration).ToList();
+                return FilterClass.SortByDuration();  // ошибка, но его реализация в FilterClass
             }
             catch
             {
